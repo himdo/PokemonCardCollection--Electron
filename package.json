@@ -8,9 +8,11 @@
     "build": "npx electron-forge import",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
+    "postinstall": "install-app-deps",
     "make": "electron-forge make"
   },
   "dependencies": {
+    "axios": "^1.2.2",
     "boolean": "^3.2.0",
     "buffer-crc32": "^0.2.13",
     "cacheable-lookup": "^5.0.4",
@@ -65,6 +67,7 @@
     "semver-compare": "^1.0.0",
     "serialize-error": "^7.0.1",
     "sprintf-js": "^1.1.2",
+    "sqlite3": "^5.1.4",
     "sumchecker": "^3.0.1",
     "type-fest": "^0.13.1",
     "universalify": "^0.1.2",
@@ -78,7 +81,8 @@
     "@electron-forge/maker-rpm": "^6.0.4",
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
-    "electron": "^22.0.0"
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0"
   },
   "author": "himdo",
   "license": "ISC"

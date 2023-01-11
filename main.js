@@ -1,6 +1,7 @@
 // Modules to control application life and create native browser window
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
+const db_helper = require('./MainProcessor/database/db_helper')
 
 function createWindow () {
   // Create the browser window.
@@ -13,7 +14,7 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('RendererProcessor/index.html')
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
