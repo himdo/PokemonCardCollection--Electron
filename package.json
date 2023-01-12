@@ -7,7 +7,7 @@
     "startold": "electron-forge start",
     "startclient": "npm --prefix frontend start",
     "start2": "concurrently  \"cross-env BROWSER=none PORT=3000 npm --prefix frontend start\" \"wait-on http://localhost:3000 && ELECTRON_START_URL=http://localhost:3000 electron .\"",
-    "start": "concurrently  \"cross-env BROWSER=none PORT=3000 npm --prefix frontend start\" \"wait-on http://localhost:3000 && electron .\"",
+    "start": "concurrently  \"cross-env BROWSER=none PORT=3000 npm --prefix frontend start\" \"wait-on http://localhost:3000 && electron-forge start\"",
     "build": "npx electron-forge import",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",

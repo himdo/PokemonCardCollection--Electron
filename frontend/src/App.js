@@ -1,9 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
+import { channels } from './shared/constants';
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, ListItemButton, ListItemText, ListItemIcon, Divider, List, ListItem, Box, IconButton, Toolbar, Typography, Drawer, Button } from '@mui/material';
+import { useEffect } from 'react'
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -12,6 +14,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 
+// const { ipcRenderer } = window.require('electron');
 const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -22,9 +25,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-
 function App() {
   const [open, setOpen] = React.useState(false);
+  const [data, setData] = React.useState(null);
+
+  useEffect(() => {
+    // call api or anything
+    console.log("loaded");
+    window.api.send(channels.GET_DATA, { product: 'loaded' })
+  }, [""]);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -33,6 +42,18 @@ function App() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const getData = () => {
+    window.api.send(channels.GET_DATA, { product: 'notebook' })
+  };
+
+  useEffect(() => {
+    window.api.receive(channels.GET_DATA, setData)
+    // Clean the listener after the component is dismounted
+    return () => {
+      // window.api.on.removeAllListeners();
+    };
+  }, [window.api.on, data]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -101,6 +122,7 @@ function App() {
 
       <DrawerHeader />
       <header className="App-header">
+        {data && <h2>{data}</h2>}
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -113,7 +135,7 @@ function App() {
         >
           Learn React
         </a>
-        <Button variant="text">Text</Button>
+        <Button variant="text" onClick={getData}>Text</Button>
       </header>
     </Box>
   );

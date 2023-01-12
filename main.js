@@ -1,7 +1,9 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const db_helper = require('./MainProcessor/database/db_helper')
+const { channels } = require('./frontend/src/shared/constants')
+
 
 function createWindow () {
   // Create the browser window.
@@ -9,7 +11,8 @@ function createWindow () {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'frontend/src/preload.js'),
+      nodeIntegration: true
     }
   })
 
@@ -27,6 +30,28 @@ function createWindow () {
   if (isDev) {
     mainWindow.webContents.openDevTools();
   }
+
+  ipcMain.on(channels.GET_DATA, (event, arg) => {
+    const { product } = arg;
+    // console.log(event);
+    console.log(product);
+    // ipcMain.send(channels.GET_DATA, product)
+    // event.sender.send(channels.GET_DATA, product);
+    // event.returnValue = product
+    // mainWindow.webContents.send(channels.GET_DATA, product)
+    event.reply(channels.GET_DATA, product)
+    // event.sender.send
+    // retur
+  });
+
+  // ipcMain.handle(channels.GET_DATA, (event, arg) => {
+  //   const { product } = arg;
+  //   console.log(event);
+  //   // mainWindow.webContents.send(channels.GET_DATA, product)
+  //   event.returnValue = product
+  //   event.sendReply(channels.GET_DATA)
+  //   return product
+  // })
 }
 
 // This method will be called when Electron has finished
@@ -48,6 +73,9 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
+
+
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
