@@ -4,7 +4,10 @@
   "description": "A electron app for managing pokemon card collections",
   "main": "main.js",
   "scripts": {
-    "start": "electron-forge start",
+    "startold": "electron-forge start",
+    "startclient": "npm --prefix frontend start",
+    "start2": "concurrently  \"cross-env BROWSER=none PORT=3000 npm --prefix frontend start\" \"wait-on http://localhost:3000 && ELECTRON_START_URL=http://localhost:3000 electron .\"",
+    "start": "concurrently  \"cross-env BROWSER=none PORT=3000 npm --prefix frontend start\" \"wait-on http://localhost:3000 && electron .\"",
     "build": "npx electron-forge import",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
@@ -81,8 +84,11 @@
     "@electron-forge/maker-rpm": "^6.0.4",
     "@electron-forge/maker-squirrel": "^6.0.4",
     "@electron-forge/maker-zip": "^6.0.4",
+    "concurrently": "^7.6.0",
+    "cross-env": "^7.0.3",
     "electron": "^22.0.0",
-    "electron-builder": "^23.6.0"
+    "electron-builder": "^23.6.0",
+    "wait-on": "^7.0.1"
   },
   "author": "himdo",
   "license": "ISC"

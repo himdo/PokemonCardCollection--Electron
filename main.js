@@ -14,10 +14,19 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('RendererProcessor/index.html')
+  // mainWindow.loadFile('RendererProcessor/index.html')
+  // mainWindow.loadFile('frontend/build/index.html')
 
+  let isDev=true
+  mainWindow.loadURL(
+    isDev
+      ? 'http://localhost:3000'
+      : `file://${path.join(__dirname, 'frontend/build/index.html')}` //TODO figure this out
+  );
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  if (isDev) {
+    mainWindow.webContents.openDevTools();
+  }
 }
 
 // This method will be called when Electron has finished
