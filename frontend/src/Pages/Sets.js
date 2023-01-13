@@ -12,6 +12,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SetsTile from '../Components/SetsTile';
+import { useLocation, useParams } from 'react-router-dom';
 
 let drawerWidth = 0;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -23,13 +24,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-function Sets() {
+function Sets(props) {
   const [open, setOpen] = React.useState(false);
-  const [data, setData] = React.useState(null);
   const [sets, setSets] = React.useState(null);
 
   useEffect(() => {
     // call api or anything
+    console.log(props)
     window.api.send(channels.GET_DATA, { type: 'FetchData', value: 'Sets' })
   }, [""]);
 
@@ -44,9 +45,6 @@ function Sets() {
     setOpen(false);
   };
 
-  const getData = () => {
-    window.api.send(channels.GET_DATA, { product: 'notebook' })
-  };
   const setCorrectData = (arg) => {
     try {
       const { type } = arg
@@ -57,7 +55,6 @@ function Sets() {
           break;
       
         default:
-          setData('ERROR with ARG ' + type)
           break;
       }
     } catch (error) {
@@ -65,13 +62,14 @@ function Sets() {
       console.log('Error receiving Data: ' + error)
     }
   }
+  
   useEffect(() => {
     window.api.receive(channels.GET_DATA, setCorrectData)
     // Clean the listener after the component is dismounted
     return () => {
       // window.api.on.removeAllListeners();
     };
-  }, [window.api.on, data]);
+  }, [window.api.on]);
 
   return (
     <Box sx={{ display: 'flex' }}>

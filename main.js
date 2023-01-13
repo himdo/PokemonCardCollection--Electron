@@ -3,7 +3,7 @@ const {app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const db_helper = require('./MainProcessor/database/db_helper')
 const { channels } = require('./frontend/src/shared/constants')
-const { getSetsData } = require('./helpers/ReadAllJSONData')
+const { getSetsData, getCardsData } = require('./helpers/ReadAllJSONData')
 
 
 function createWindow () {
@@ -33,15 +33,21 @@ function createWindow () {
   }
 
   ipcMain.on(channels.GET_DATA, (event, arg) => {
-    const { type, value } = arg;
-    // console.log(event);
+    const { type, value, setId } = arg;
     console.log(arg);
     switch (type) {
       case 'FetchData':
         switch (value) {
           case 'Sets':
-            let data = {'type': 'Sets', 'value': getSetsData()}
-            event.reply(channels.GET_DATA, data)
+            let setData = {'type': 'Sets', 'value': getSetsData()}
+            event.reply(channels.GET_DATA, setData)
+            break;
+          case 'CardsInSet':
+
+            let cardInSetDataFull = getCardsData()
+            let cardInSetFiltered = cardInSetDataFull.filter(cardObject => cardObject.set.id === setId)
+            let cardInSetData = {'type': 'CardsInSet', 'value': cardInSetFiltered}
+            event.reply(channels.GET_DATA, cardInSetData)
             break;
         
           default:
@@ -50,21 +56,16 @@ function createWindow () {
         }
         
         break;
-    
+      case 'OpenWebsite':
+        const shell = require('electron').shell;
+        shell.openExternal(value)
+        break;
       default:
         event.reply(channels.GET_DATA, 'UNKNOWN TYPE')
         break;
     }
   });
 
-  // ipcMain.handle(channels.GET_DATA, (event, arg) => {
-  //   const { product } = arg;
-  //   console.log(event);
-  //   // mainWindow.webContents.send(channels.GET_DATA, product)
-  //   event.returnValue = product
-  //   event.sendReply(channels.GET_DATA)
-  //   return product
-  // })
 }
 
 // This method will be called when Electron has finished
@@ -86,8 +87,6 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 })
-
-
 
 
 // In this file you can include the rest of your app's specific main process

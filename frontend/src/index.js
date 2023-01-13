@@ -5,15 +5,19 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { CssBaseline } from '@mui/material';
 import Sets from './Pages/Sets';
+import CardsInSets from './Pages/CardsInSets';
 
+
+// TODO make electron app call in this file so when pages change nothing has to be recalled
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>
     <CssBaseline />
     <BrowserRouter>
       <Route path="/Cards/:setId/:cardId"/>
-      <Route path="/Cards/:setId/"/>
+      <Route path="/Cards/:setId/" component={CardsInSets}/>
       <Route path="/Sets" component={Sets}/>
+      {/* <Route path="/Sets" component={() => (<Sets sets="test"/>)}/> */}
       <Route path="/">
         <Redirect to="/Sets" />
       </Route>
