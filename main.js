@@ -3,6 +3,7 @@ const {app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const db_helper = require('./MainProcessor/database/db_helper')
 const { channels } = require('./frontend/src/shared/constants')
+const { getSetsData } = require('./helpers/ReadAllJSONData')
 
 
 function createWindow () {
@@ -32,16 +33,28 @@ function createWindow () {
   }
 
   ipcMain.on(channels.GET_DATA, (event, arg) => {
-    const { product } = arg;
+    const { type, value } = arg;
     // console.log(event);
-    console.log(product);
-    // ipcMain.send(channels.GET_DATA, product)
-    // event.sender.send(channels.GET_DATA, product);
-    // event.returnValue = product
-    // mainWindow.webContents.send(channels.GET_DATA, product)
-    event.reply(channels.GET_DATA, product)
-    // event.sender.send
-    // retur
+    console.log(arg);
+    switch (type) {
+      case 'FetchData':
+        switch (value) {
+          case 'Sets':
+            let data = {'type': 'Sets', 'value': getSetsData()}
+            event.reply(channels.GET_DATA, data)
+            break;
+        
+          default:
+            event.reply(channels.GET_DATA, 'UNKNOWN Value To Fetch')
+            break;
+        }
+        
+        break;
+    
+      default:
+        event.reply(channels.GET_DATA, 'UNKNOWN TYPE')
+        break;
+    }
   });
 
   // ipcMain.handle(channels.GET_DATA, (event, arg) => {

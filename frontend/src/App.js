@@ -9,13 +9,12 @@ import { useEffect } from 'react'
 
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import SetsTile from './Components/SetsTile';
 
-// const { ipcRenderer } = window.require('electron');
-const drawerWidth = 240;
+let drawerWidth = 0;
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -28,27 +27,47 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function App() {
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState(null);
+  const [sets, setSets] = React.useState(null);
 
   useEffect(() => {
     // call api or anything
-    console.log("loaded");
-    window.api.send(channels.GET_DATA, { product: 'loaded' })
+    window.api.send(channels.GET_DATA, { type: 'FetchData', value: 'Sets' })
   }, [""]);
 
   const handleDrawerOpen = () => {
+    drawerWidth=240
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
+    drawerWidth=0
+
     setOpen(false);
   };
 
   const getData = () => {
     window.api.send(channels.GET_DATA, { product: 'notebook' })
   };
-
+  const setCorrectData = (arg) => {
+    try {
+      const { type } = arg
+      switch (type) {
+        case 'Sets':
+          console.log(arg['value'])
+          setSets(arg['value'])
+          break;
+      
+        default:
+          setData('ERROR with ARG ' + type)
+          break;
+      }
+    } catch (error) {
+      
+      console.log('Error receiving Data: ' + error)
+    }
+  }
   useEffect(() => {
-    window.api.receive(channels.GET_DATA, setData)
+    window.api.receive(channels.GET_DATA, setCorrectData)
     // Clean the listener after the component is dismounted
     return () => {
       // window.api.on.removeAllListeners();
@@ -120,22 +139,11 @@ function App() {
         </List>
       </Drawer>
 
-      <DrawerHeader />
-      <header className="App-header">
-        {data && <h2>{data}</h2>}
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <Button variant="text" onClick={getData}>Text</Button>
+      <header className="App-header" style={{paddingTop: '104px', width: '100%'}}>
+        <div style={{width: "40%"}}>
+          {sets && sets.map((set) =><div key={set.id}><SetsTile value={set}/> <br/></div>)}
+        </div>
+        {/* <Button variant="text" onClick={getData}>Text</Button> */}
       </header>
     </Box>
   );

@@ -21,7 +21,7 @@ contextBridge.exposeInMainWorld(
           // let validChannels = ["fromMain"];
           // if (validChannels.includes(channel)) {
               // Deliberately strip event as it includes `sender` 
-              ipcRenderer.on(channel, (event, ...args) => func(...args));
+              ipcRenderer.on(channel, (event, ...args) => {console.log(...args); func(...args)});
           // }
       },
       on: ipcRenderer.on,
@@ -29,12 +29,3 @@ contextBridge.exposeInMainWorld(
       
   },
 );
-
-
-// ipcRenderer.send(channels.GET_DATA, { product: 'FirstRun' })
-// ipcRenderer.on(channels.GET_DATA, (event, arg) => {
-//   console.log(arg)
-// })
-// contextBridge.exposeInMainWorld(
-//   "ipcRenderer", ipcRenderer
-// );
