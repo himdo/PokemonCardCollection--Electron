@@ -1,9 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import './Sets.css';
 import CssBaseline from '@mui/material/CssBaseline';
-import { channels } from './shared/constants';
+import { channels } from '../shared/constants';
 import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { AppBar, ListItemButton, ListItemText, ListItemIcon, Divider, List, ListItem, Box, IconButton, Toolbar, Typography, Drawer, Button } from '@mui/material';
 import { useEffect } from 'react'
 
@@ -12,7 +11,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import SetsTile from './Components/SetsTile';
+import SetsTile from '../Components/SetsTile';
 
 let drawerWidth = 0;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -24,7 +23,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-function App() {
+function Sets() {
   const [open, setOpen] = React.useState(false);
   const [data, setData] = React.useState(null);
   const [sets, setSets] = React.useState(null);
@@ -76,8 +75,7 @@ function App() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <h1>THIS IS NOT USED</h1>
-      {/* <CssBaseline />
+      <CssBaseline />
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
@@ -110,6 +108,7 @@ function App() {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
+            {/* {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />} */}
             <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
@@ -143,10 +142,10 @@ function App() {
         <div style={{width: "40%"}}>
           {sets && sets.map((set) =><div key={set.id}><SetsTile value={set}/> <br/></div>)}
         </div>
-        <Button variant="text" onClick={getData}>Text</Button>
-      </header> */}
+        {/* <Button variant="text" onClick={getData}>Text</Button> */}
+      </header>
     </Box>
   );
 }
 
-export default App;
+export default Sets;
