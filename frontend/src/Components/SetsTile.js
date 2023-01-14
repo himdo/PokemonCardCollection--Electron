@@ -7,7 +7,7 @@ function SetsTile(props) {
     <Link to={{
       pathname: `/Cards/${value.id}`, 
       }} style={{textDecoration: 'none'}}>
-      <Box style={{paddingBottom: '16px'}} sx={{ bgcolor: '#454c5a', display: 'block' }}>
+      <Box style={{paddingBottom: '16px', borderRadius: '25px'}} sx={{ bgcolor: '#454c5a', display: 'block' }}>
         <Grid container spacing={2} style={{color: 'black'}}>
           <Grid item xs={6}  style={{textAlign: 'center'}}>
             <div>

@@ -3,9 +3,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { channels } from '../shared/constants';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { AppBar, ListItemButton, ListItemText, ListItemIcon, Divider, List, ListItem, Box, IconButton, Toolbar, Typography, Drawer, Button } from '@mui/material';
+import { AppBar, ListItemButton, ListItemText, ListItemIcon, Divider, List, ListItem, Box, IconButton, Toolbar, Typography, Drawer, InputBase, TextField } from '@mui/material';
 import { useEffect } from 'react'
-
+import Autocomplete from '@mui/material/Autocomplete';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
@@ -137,6 +137,15 @@ function Sets(props) {
       </Drawer>
 
       <header className="App-header" style={{paddingTop: '104px', width: '100%'}}>
+        <div style={{paddingBottom:'40px', width: '80%',}}>
+          <Box sx={{ bgcolor: '#454c5a', display: 'block' }} style={{padding: '0px 8px 0px 8px', borderRadius: '25px' }}>
+            <Autocomplete options={[{'label': 'aaaa'}]} renderInput={(params) => 
+              <div ref={params.InputProps.ref}>
+                <InputBase {...params.inputProps} style={{borderRadius: '25px', border: '2px solid #000', padding: '10px', marginBottom: '8px', marginTop: '8px' }} placeholder="Seach" fullWidth/>
+              </div>}
+            />
+          </Box>
+        </div>
         <div style={{width: "40%"}}>
           {sets && sets.map((set) =><div key={set.id}><SetsTile value={set}/> <br/></div>)}
         </div>
