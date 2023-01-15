@@ -3,7 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { channels } from '../shared/constants';
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { AppBar, ListItemButton, ListItemText, ListItemIcon, Divider, List, ListItem, Box, IconButton, Toolbar, Typography, Drawer, InputBase, TextField } from '@mui/material';
+import { AppBar, ListItemButton, ListItemText, ListItemIcon, Divider, List, ListItem, Box, IconButton, Toolbar, Typography, Drawer, InputBase, TextField, Grid } from '@mui/material';
 import { useEffect } from 'react'
 import Autocomplete from '@mui/material/Autocomplete';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -74,7 +74,7 @@ function Sets(props) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      {/* <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -89,9 +89,9 @@ function Sets(props) {
             Persistent drawer
           </Typography>
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
 
-      <Drawer
+      {/* <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -106,7 +106,6 @@ function Sets(props) {
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {/* {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />} */}
             <ChevronLeftIcon />
           </IconButton>
         </DrawerHeader>
@@ -134,10 +133,11 @@ function Sets(props) {
             </ListItem>
           ))}
         </List>
-      </Drawer>
+      </Drawer> */}
 
-      <header className="App-header" style={{paddingTop: '104px', width: '100%'}}>
-        <div style={{paddingBottom:'40px', width: '80%',}}>
+      {/* <header className="App-header" style={{paddingTop: '104px', width: '100%', minWidth: '500px'}}> */}
+      <header className="App-header" style={{paddingTop: '32px', width: '100%', minWidth: '500px'}}>
+        <div style={{paddingBottom:'40px', width: '80%', padding: '0px 16px 32px 16px' }}>
           <Box sx={{ bgcolor: '#454c5a', display: 'block' }} style={{padding: '0px 8px 0px 8px', borderRadius: '25px' }}>
             <Autocomplete options={[{'label': 'aaaa'}]} renderInput={(params) => 
               <div ref={params.InputProps.ref}>
@@ -146,9 +146,20 @@ function Sets(props) {
             />
           </Box>
         </div>
-        <div style={{width: "40%"}}>
-          {sets && sets.map((set) =><div key={set.id}><SetsTile value={set}/> <br/></div>)}
+        <div style={{paddingBottom: '40px', color:'black', width: '80%', textAlign: 'center', padding: '0px 16px 32px 16px'}}>
+          <Box sx={{ bgcolor: '#454c5a', display: 'block' }} style={{padding: '0px 8px 0px 8px', borderRadius: '25px' }}>
+            Sets:
+          </Box>
         </div>
+        {/* <Box></Box> */}
+        <Grid container spacing={3} style={{width: '80%'}}>
+          {sets && sets.map((set) =>
+            <Grid item xs key={set.id} style={{minWidth: '400px'}}>
+              <SetsTile value={set}/> 
+              <br/>
+            </Grid>
+          )}
+        </Grid>
         {/* <Button variant="text" onClick={getData}>Text</Button> */}
       </header>
     </Box>

@@ -12,10 +12,11 @@ function CardTile(props) {
   };
 
   return (
-    <Link to={{
+    <div>
+       {/* to={{
       pathname: `/Cards/${setId}/${value.id}`, 
-      }} style={{textDecoration: 'none'}}>
-      <Box style={{paddingBottom: '16px'}} sx={{ bgcolor: '#454c5a', display: 'block' }}>
+      }} style={{textDecoration: 'none'}}> */}
+      <Box style={{paddingBottom: '16px'}} sx={{ bgcolor: '#454c5a', display: 'block', borderRadius: '25px' }}>
         <Grid container spacing={2} style={{color: 'black'}}>
           <Grid item xs={6}  style={{textAlign: 'center'}}>
             <div>
@@ -41,7 +42,7 @@ function CardTile(props) {
             <div><b>lowPrice:</b> {value.cardmarket.prices.lowPrice} €</div>
             <div><b>trendPrice:</b> {value.cardmarket.prices.trendPrice} €</div>
             <div><b>Last Updated:</b> {value.cardmarket.updatedAt}</div>
-            <div onClick={() => (requestWebPageOpening(value.cardmarket.url))}><b>Link:</b> <span style={{cursor: 'pointer', textDecoration: 'underline'}}>{value.cardmarket.url}</span></div>
+            <div onClick={() => (requestWebPageOpening(value.cardmarket.url))}><b>Link:</b> <span style={{cursor: 'pointer', textDecoration: 'underline'}}>Go To Page</span></div>
           </Grid>
 
           <Grid item xs={6} style={{textAlign: 'center'}}>
@@ -53,7 +54,7 @@ function CardTile(props) {
           </Grid>
         </Grid>
       </Box>
-    </Link>
+    </div>
   );
 }
 
