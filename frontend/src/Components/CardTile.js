@@ -17,28 +17,35 @@ function CardTile(props) {
           <Grid item xs={6}  style={{textAlign: 'center'}}>
             <div>
               <img
-                src={`${value.images.large}`}
+                src={`${value?.images?.large}`}
                 width={256}
-                alt={value.name}
+                alt={value?.name}
                 loading="lazy"
               />
             </div>
           </Grid>
           <Grid item xs={6}>
-            <div style={{maxWidth: '80%'}}><b>Name:</b> {value.name}</div>
-            <div style={{maxWidth: '80%'}}><b>HP:</b> {value.hp}</div>
-            <div style={{maxWidth: '80%'}}><b>Rarity:</b> {value.rarity}</div>
+            <div style={{maxWidth: '80%'}}><b>Name:</b> {value?.name}</div>
+            <div style={{maxWidth: '80%'}}><b>HP:</b> {value?.hp}</div>
+            <div style={{maxWidth: '80%'}}><b>Rarity:</b> {value?.rarity}</div>
             <div><b>Number Owned:</b> 0</div>
             <br/>
-            <div><b><u>Prices</u></b></div>
-            <div><b>Average sell price:</b> {value.cardmarket.prices.averageSellPrice} €</div>
-            <div><b>Average sell price (1 Day):</b> {value.cardmarket.prices.avg1} €</div>
-            <div><b>Average sell price (7 Day):</b> {value.cardmarket.prices.avg7} €</div>
-            <div><b>Average sell price (30 Day):</b> {value.cardmarket.prices.avg30} €</div>
-            <div><b>lowPrice:</b> {value.cardmarket.prices.lowPrice} €</div>
-            <div><b>trendPrice:</b> {value.cardmarket.prices.trendPrice} €</div>
-            <div><b>Last Updated:</b> {value.cardmarket.updatedAt}</div>
-            <div onClick={() => (requestWebPageOpening(value.cardmarket.url))}><b>Link:</b> <span style={{cursor: 'pointer', textDecoration: 'underline'}}>Go To Page</span></div>
+            {value?.cardmarket && <div>
+              <div><b><u>Prices</u></b></div>
+              <div><b>Average sell price:</b> {value?.cardmarket?.prices?.averageSellPrice} €</div>
+              <div><b>Average sell price (1 Day):</b> {value?.cardmarket?.prices?.avg1} €</div>
+              <div><b>Average sell price (7 Day):</b> {value?.cardmarket?.prices?.avg7} €</div>
+              <div><b>Average sell price (30 Day):</b> {value?.cardmarket?.prices?.avg30} €</div>
+              <div><b>lowPrice:</b> {value?.cardmarket?.prices?.lowPrice} €</div>
+              <div><b>trendPrice:</b> {value?.cardmarket?.prices?.trendPrice} €</div>
+              <div><b>Last Updated:</b> {value?.cardmarket?.updatedAt}</div>
+              <div onClick={() => (requestWebPageOpening(value?.cardmarket?.url))}><b>Link:</b> <span style={{cursor: 'pointer', textDecoration: 'underline'}}>Go To Page</span></div>
+            </div>}
+            {!value?.cardmarket && <div>
+              <div><b><u>Prices</u></b></div>
+              <div>Prices could not be found</div>  
+            </div>}
+            
           </Grid>
 
           <Grid item xs={6} style={{textAlign: 'center'}}>
