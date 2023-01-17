@@ -46,7 +46,7 @@ function createWindow () {
 
             let cardInSetDataFull = getCardsData()
             let cardInSetFiltered = cardInSetDataFull.filter(cardObject => cardObject.set.id === setId)
-            let cardInSetData = {'type': 'CardsInSet', 'value': cardInSetFiltered}
+            let cardInSetData = {'type': 'CardsInSet', 'value': cardInSetFiltered, 'setId': setId}
             event.reply(channels.GET_DATA, cardInSetData)
             break;
         

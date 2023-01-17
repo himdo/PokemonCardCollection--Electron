@@ -9,36 +9,18 @@ import { Box, CssBaseline, Grid } from "@mui/material";
 function CardsInSets(props) {
   const { setId } = useParams()
   const [cards, setCards] = React.useState(null);
-
-  const setCorrectData = (arg) => {
-    try {
-      const { type } = arg
-      switch (type) {
-        case 'CardsInSet':
-          console.log(arg['value'])
-          setCards(arg['value'])
-          break;
-      
-        default:
-          break;
-      }
-    } catch (error) {
-      console.log('Error receiving Data: ' + error)
-    }
-  }
-
+  const { getCards, cardsInSets } = props
   useEffect(() => {
-    window.api.send(channels.GET_DATA, { type: 'FetchData', value: 'CardsInSet', setId: setId })
+    setCards(getCards(setId))
   }, [""]);
 
   useEffect(() => {
-    window.api.receive(channels.GET_DATA, setCorrectData)
-    // Clean the listener after the component is dismounted
-    return () => {
-      // window.api.on.removeAllListeners();
-    };
-  }, [window.api.on]);
-
+    if (cardsInSets && cardsInSets[setId])
+      setCards(cardsInSets[setId])
+    else 
+      setCards([])
+  }, [cardsInSets])
+  
   return (
     <Box  sx={{ display: 'flex' }}>
       <CssBaseline />
