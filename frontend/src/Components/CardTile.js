@@ -1,5 +1,4 @@
 import { Box, Grid } from "@mui/material";
-import { Link } from 'react-router-dom';
 import { channels } from "../shared/constants";
 
 
@@ -13,9 +12,6 @@ function CardTile(props) {
 
   return (
     <div>
-       {/* to={{
-      pathname: `/Cards/${setId}/${value.id}`, 
-      }} style={{textDecoration: 'none'}}> */}
       <Box style={{paddingBottom: '16px'}} sx={{ bgcolor: '#454c5a', display: 'block', borderRadius: '25px' }}>
         <Grid container spacing={2} style={{color: 'black'}}>
           <Grid item xs={6}  style={{textAlign: 'center'}}>

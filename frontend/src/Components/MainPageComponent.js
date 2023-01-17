@@ -1,4 +1,3 @@
-// import './Sets.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import { channels } from '../shared/constants';
 import * as React from 'react';
@@ -35,8 +34,6 @@ function MainPageComponent(props) {
     // call api or anything
     console.log(props)
     window.api.send(channels.GET_DATA, { type: 'FetchData', value: 'Sets' })
-    // window.api.send(channels.GET_DATA, { type: 'FetchData', value: 'CardsInSet', setId: setId })
-
   }, [""]);
 
 
@@ -71,7 +68,6 @@ function MainPageComponent(props) {
           break;
       }
     } catch (error) {
-      
       console.log('Error receiving Data: ' + error)
     }
   }

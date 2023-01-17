@@ -2,10 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { CssBaseline } from '@mui/material';
-import Sets from './Pages/Sets';
-import CardsInSets from './Pages/CardsInSets';
 import MainPageComponent from './Components/MainPageComponent';
 
 
@@ -15,9 +12,6 @@ root.render(
   <>
     <CssBaseline />
     <MainPageComponent/>
-    {/* <React.StrictMode>
-      <App />
-    </React.StrictMode> */}
   </>
 );
 

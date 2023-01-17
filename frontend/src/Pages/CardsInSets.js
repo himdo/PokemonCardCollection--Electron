@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { channels } from "../shared/constants";
 import * as React from 'react';
 import CardTile from "../Components/CardTile";
 import { Box, CssBaseline, Grid } from "@mui/material";
@@ -11,7 +10,7 @@ function CardsInSets(props) {
   const [cards, setCards] = React.useState(null);
   const { getCards, cardsInSets } = props
   useEffect(() => {
-    setCards(getCards(setId))
+    getCards(setId)
   }, [""]);
 
   useEffect(() => {
